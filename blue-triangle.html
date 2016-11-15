@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <style>
+      body {
+        margin: 0px;
+        padding: 0px;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="canvas" width="12" height="12"></canvas>
+    <script>
+      var canvas = document.getElementById('canvas');
+      var context = canvas.getContext('2d');
+      var centerX = canvas.width / 2;
+      var centerY = canvas.height / 2;
+
+      context.beginPath();
+      context.moveTo(centerX - (canvas.width / 4), centerY - (canvas.height / 4));
+      context.lineTo(centerX + (canvas.width / 4), centerY);
+      context.lineTo(centerX - (canvas.width / 4), centerY + (canvas.height / 4));
+      context.lineTo(centerX - (canvas.width / 4), centerY - (canvas.height / 4));
+      context.fillStyle = '#3498db';
+      context.fill();
+
+      window.location.assign(canvas.toDataURL());
+    </script>
+  </body>
+</html>
