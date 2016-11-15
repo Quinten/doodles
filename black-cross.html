@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <style>
+      body {
+        margin: 0px;
+        padding: 0px;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="canvas" width="24" height="24"></canvas>
+    <script>
+      var canvas = document.getElementById('canvas');
+      var context = canvas.getContext('2d');
+      var centerX = canvas.width / 2;
+      var centerY = canvas.height / 2;
+      var thickness = 2;
+
+      context.beginPath();
+      context.moveTo(centerX - (thickness / 2), centerY - (canvas.height / 4));
+
+      context.lineTo(centerX + (thickness / 2), centerY - (canvas.height / 4));
+      context.lineTo(centerX + (thickness / 2), centerY - (thickness / 2));
+      context.lineTo(centerX + (canvas.width / 4), centerY - (thickness / 2));
+      context.lineTo(centerX + (canvas.width / 4), centerY + (thickness / 2));
+      context.lineTo(centerX + (thickness / 2), centerY + (thickness / 2));
+      context.lineTo(centerX + (thickness / 2), centerY + (canvas.height / 4));
+      context.lineTo(centerX - (thickness / 2), centerY + (canvas.height / 4));
+      context.lineTo(centerX - (thickness / 2), centerY + (thickness / 2));
+      context.lineTo(centerX - (canvas.width / 4), centerY + (thickness / 2));
+      context.lineTo(centerX - (canvas.width / 4), centerY - (thickness / 2));
+      context.lineTo(centerX - (thickness / 2), centerY - (thickness / 2));
+
+      context.lineTo(centerX - (thickness / 2), centerY - (canvas.height / 4));
+      context.fillStyle = '#2c3e50';
+      context.fill();
+
+      window.location.assign(canvas.toDataURL());
+    </script>
+  </body>
+</html>
