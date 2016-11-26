@@ -19,11 +19,11 @@
         context.fillStyle = '#bfbfbf';
         context.fill();
 
-      var nBlobs = 64, blobs = [];
+      var nBlobs = 256, blobs = [];
 
       for (var b = 0; b < nBlobs; b++) {
 
-          var blob = {x: Math.floor(Math.random() * canvas.width), y: Math.floor(Math.random() * canvas.width), size: (16 + Math.floor(Math.random() * 48)) };
+          var blob = {x: Math.floor(Math.random() * canvas.width), y: Math.floor(Math.random() * canvas.height), size: (16 + Math.floor(Math.random() * 48)) };
 
         context.beginPath();
         context.arc(blob.x, blob.y, blob.size, 0, 2 * Math.PI, false);
@@ -38,7 +38,7 @@
           blob = blobs[b];
 
         context.beginPath();
-        context.arc(blob.x, blob.y, blob.size - 2, 0, 2 * Math.PI, false);
+        context.arc(blob.x, blob.y, blob.size - 4, 0, 2 * Math.PI, false);
         context.fillStyle = '#bfbfbf';
         context.fill();
       }
