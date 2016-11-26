@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <style>
+      body {
+        margin: 0px;
+        padding: 0px;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="canvas" width="750" height="1334"></canvas>
+    <script>
+      var canvas = document.getElementById('canvas');
+      var context = canvas.getContext('2d');
+
+      context.beginPath();
+        context.rect(0, 0, canvas.width, canvas.height);
+        context.fillStyle = '#bfbfbf';
+        context.fill();
+
+      var nBlobs = 64, blobs = [];
+
+      for (var b = 0; b < nBlobs; b++) {
+
+          var blob = {x: Math.floor(Math.random() * canvas.width), y: Math.floor(Math.random() * canvas.width), size: (16 + Math.floor(Math.random() * 48)) };
+
+        context.beginPath();
+        context.arc(blob.x, blob.y, blob.size, 0, 2 * Math.PI, false);
+        context.fillStyle = '#707070';
+        context.fill();
+
+        blobs.push(blob);
+      }
+
+      for (b = 0; b < nBlobs; b++) {
+
+          blob = blobs[b];
+
+        context.beginPath();
+        context.arc(blob.x, blob.y, blob.size - 2, 0, 2 * Math.PI, false);
+        context.fillStyle = '#bfbfbf';
+        context.fill();
+      }
+
+     window.location.assign(canvas.toDataURL());
+    </script>
+  </body>
+</html>
