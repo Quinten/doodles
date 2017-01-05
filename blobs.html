@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+  <meta name="HandheldFriendly" content="True" />
+  <title>blobs</title>
+</head>
+<body>
+<canvas id="c">Sorry, your browser does not support canvas.</canvas>
+<script>
+    var experiment = {};
+    experiment.setup = function () {
+      
+      // check if the browser has any idea if we can do the setup yet
+      if (!window.innerWidth) {
+        setTimeout(experiment.setup, 500);
+        return;
+      }
+      
+      // grab canvas and drawing context
+      var canvas = document.getElementById('c'), context = canvas.getContext('2d');
+      if(!context){
+        return;
+      }
+      
+      // some css tweaks
+      document.body.style.background = "#ffffff";
+      document.body.style.margin = 0; 
+      document.body.style.overflow = "hidden";
+      
+      // fill canvas to browser size
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      // fill the background
+      context.fillStyle = "rgb(213, 217, 186)";
+      context.fillRect(0, 0, canvas.width, canvas.height);
+      // "stroke color"
+      context.fillStyle = "rgb(89, 74, 89)";
+      // loop over points, save them and draw the "stroke"
+      var points = [];
+      for (var i = 0; i < 40; i++) {
+      	points[i] = {x: (Math.random() * canvas.width), y: ((canvas.height / 2) - (canvas.height / 16 ) + (Math.random() * canvas.height / 8)), r: (20 + (Math.random() * 140))  };
+      	context.beginPath();
+      	context.arc(points[i].x, points[i].y, points[i].r, 0 , Math.PI *2, false)
+      	context.closePath();
+      	context.fill();
+      }
+      // loop again and "fill"
+      context.fillStyle = "rgb(237, 201, 242)";
+      for (var i = 0; i < 40; i++) {
+      	context.beginPath();
+      	context.arc(points[i].x, points[i].y, points[i].r - 10, 0 , Math.PI *2, false)
+      	context.closePath();
+      	context.fill();
+      }
+      
+
+
+    };// end setup closure
+    
+    // if this html document is ready we can begin thinking of the experiment setup
+    if(document.readyState === 'complete'){
+      experiment.setup();
+    } else {
+      window.onload = function (){
+        experiment.setup();
+      }
+    }  
+</script>
+</body>
+</html>

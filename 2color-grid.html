@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+  <meta name="HandheldFriendly" content="True" />
+  <title>2 opposite color grid :: 28 refreshes</title>
+  <meta name="description" content="2 opposite color grid : html5 canvas experiment, each image is different when you refresh your browser window">
+</head>
+<body>
+<canvas id="c">Sorry, your browser does not support canvas.</canvas>
+<script>
+    var experiment = {};
+    experiment.setup = function () {
+      
+      // check if the browser has any idea if we can do the setup yet
+      if (!window.innerWidth) {
+        setTimeout(experiment.setup, 500);
+        return;
+      }
+      
+      // grab canvas and drawing context
+      var canvas = document.getElementById('c'), context = canvas.getContext('2d');
+      if(!context){
+        return;
+      }
+      
+      // some css tweaks
+      document.body.style.background = "#ffffff";
+      document.body.style.margin = 0; 
+      document.body.style.overflow = "hidden";
+      
+      // fill canvas to browser size
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      // create two opposite colors
+      var bgColor = {r: Math.floor(Math.random()*255), g: Math.floor(Math.random()*255), b: Math.floor(Math.random()*255)};
+      var fgColor = {r: bgColor.r + 127, g: bgColor.g + 127, b: bgColor.b + 127};
+      if (fgColor.r > 255) {
+      	fgColor.r -= 255;
+      }
+      if (fgColor.g > 255) {
+      	fgColor.g -= 255;
+      }
+      if (fgColor.b > 255) {
+      	fgColor.b -= 255;
+      }
+      
+      // color the bg
+      context.fillStyle = "rgb(" + bgColor.r + "," + bgColor.g + "," + bgColor.b + ")";
+      context.fillRect(0, 0, canvas.width, canvas.height);
+      context.fillStyle = "rgb(" + fgColor.r + "," + fgColor.g + "," + fgColor.b + ")";
+      //context.fillRect(0, 0, canvas.width / 2, canvas.height / 2);
+      
+      // define a size for our squares and the size of our grid
+      var squareSize = 4;
+      var nX = Math.ceil(canvas.width / squareSize);
+      var nY = Math.ceil(canvas.height / squareSize);
+      
+      // loop over x and y and consider each coordinate if it needs to get the foregroundcolor or not
+      for (var x = 0; x < nX; x++) {
+      	for (var y = 0; y < nY; y++) {
+      		if (Math.random() < .5){
+      			context.fillRect( x * squareSize, y * squareSize, squareSize, squareSize);
+      		}
+      	}
+      }
+
+    };// end setup closure
+
+    // if this html document is ready we can begin thinking of the experiment setup
+    if(document.readyState === 'complete'){
+      experiment.setup();
+    } else {
+      window.onload = function (){
+        experiment.setup();
+      }
+    }  
+</script>
+</body>
+</html>
