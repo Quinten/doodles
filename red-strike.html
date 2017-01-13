@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <style>
+      body {
+        margin: 0px;
+        padding: 0px;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="canvas" width="128" height="128"></canvas>
+    <script>
+      var canvas = document.getElementById('canvas');
+      var context = canvas.getContext('2d');
+
+      context.beginPath();
+      context.moveTo(0, 0);
+      context.lineTo(canvas.width, canvas.height);
+      context.moveTo(canvas.width, 0);
+      context.lineTo(0, canvas.height);
+
+      context.strokeStyle = '#e30513';
+      context.lineWidth = 4;
+      context.stroke();
+
+      window.location.assign(canvas.toDataURL());
+    </script>
+  </body>
+</html>
