@@ -25,7 +25,7 @@
       }
 
       // some css tweaks
-      document.body.style.background = "#ffffff";
+      document.body.style.background = "#1A2831";
       document.body.style.margin = 0;
       document.body.style.overflow = "hidden";
 
@@ -34,8 +34,28 @@
       canvas.height = window.innerHeight;
 
       // draw here
-      context.fillStyle = "#00000F";
+      context.fillStyle = "#1A2831";
       context.fillRect(0, 0, canvas.width, canvas.height);
+
+      context.fillStyle = "#e3e3e3";
+
+      var stars = [];
+      var nX = Math.ceil(canvas.width / 64) + 2;
+      var nY = Math.ceil(canvas.height / 64) + 2;
+      for (var y = 0; y < nY; y++) {
+          stars[y] = [];
+          for (var x = 0; x < nX; x++) {
+              var star = {
+                  x: -32 + (x * 64) - (Math.random() * 64),
+                  y: -32 + (y * 64) - (Math.random() * 64)
+              };
+              stars[y].push(star);
+
+              context.beginPath();
+              context.arc(star.x, star.y, 1 + (Math.random() * 2), 0, 2*Math.PI);
+              context.fill();
+          }
+      }
 
     };// end setup closure
 
