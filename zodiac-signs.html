@@ -25,7 +25,7 @@
       }
 
       // some css tweaks
-      document.body.style.background = "#1A2831";
+      document.body.style.background = "#1a2831";
       document.body.style.margin = 0;
       document.body.style.overflow = "hidden";
 
@@ -34,14 +34,15 @@
       canvas.height = window.innerHeight;
 
       // draw here
-      context.fillStyle = "#1A2831";
+      context.fillStyle = "#1a2831";
       context.fillRect(0, 0, canvas.width, canvas.height);
 
       context.fillStyle = "#e3e3e3";
+      context.strokeStyle = "#e3e3e3";
 
       var stars = [];
-      var nX = Math.ceil(canvas.width / 64) + 2;
-      var nY = Math.ceil(canvas.height / 64) + 2;
+      var nX = Math.ceil(canvas.width / 64) + 3;
+      var nY = Math.ceil(canvas.height / 64) + 3;
       for (var y = 0; y < nY; y++) {
           stars[y] = [];
           for (var x = 0; x < nX; x++) {
@@ -52,8 +53,24 @@
               stars[y].push(star);
 
               context.beginPath();
-              context.arc(star.x, star.y, 1 + (Math.random() * 2), 0, 2*Math.PI);
+              context.arc(star.x, star.y, 3 + (Math.random()), 0, 2*Math.PI);
               context.fill();
+
+              var xLine = false;
+              if (x > 0 && Math.round(Math.random())) {
+                  context.beginPath();
+                  context.moveTo(star.x, star.y);
+                  context.lineTo(stars[y][x-1].x, stars[y][x-1].y);
+                  context.stroke();
+                  xLine = true;
+              }
+
+              if (y > 0 && !xLine) {
+                  context.beginPath();
+                  context.moveTo(star.x, star.y);
+                  context.lineTo(stars[y-1][x].x, stars[y-1][x].y);
+                  context.stroke();
+              }
           }
       }
 
