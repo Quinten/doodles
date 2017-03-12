@@ -57,11 +57,20 @@
                       context.beginPath();
                       context.moveTo(star.x, star.y);
                       context.lineTo(stars[y][x-1].x, stars[y][x-1].y);
-                      context.lineTo(stars[y-1][x-1].x, stars[y-1][x-1].y);                 context.lineTo(stars[y-1][x].x, stars[y-1][x].y);
+                      //context.lineTo(stars[y-1][x-1].x, stars[y-1][x-1].y);
+                      context.lineTo(stars[y-1][x].x, stars[y-1][x].y);
                       context.lineTo(star.x, star.y);
                       context.globalAlpha = 0.25 + 0.25 * Math.random();
                       context.fill();
-                      context.stroke();
+                  } else {
+                      context.beginPath();
+                      context.moveTo(star.x, star.y);
+                      //context.lineTo(stars[y][x-1].x, stars[y][x-1].y);
+                      context.lineTo(stars[y-1][x-1].x, stars[y-1][x-1].y);
+                      context.lineTo(stars[y-1][x].x, stars[y-1][x].y);
+                      context.lineTo(star.x, star.y);
+                      context.globalAlpha = 0.25 + 0.25 * Math.random();
+                      context.fill();
                   }
               }
           }
