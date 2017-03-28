@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <style>
+      body {
+        margin: 0px;
+        padding: 0px;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="canvas" width="94" height="94"></canvas>
+    <script>
+      var canvas = document.getElementById('canvas');
+      var context = canvas.getContext('2d');
+      var centerX = canvas.width / 2;
+      var centerY = canvas.height / 2;
+
+      context.beginPath();
+      context.moveTo(centerX - (Math.sin(Math.PI / 4) * canvas.width / 5), centerY - (canvas.height / 5));
+      context.lineTo(centerX + (canvas.width / 5), centerY);
+      context.lineTo(centerX - (Math.sin(Math.PI / 4) * canvas.width / 5), centerY + (canvas.height / 5));
+      context.lineTo(centerX - (Math.sin(Math.PI / 4) * canvas.width / 5), centerY - (canvas.height / 5));
+      context.fillStyle = '#a9aaa9';
+      context.fill();
+
+      context.beginPath();
+      context.arc(centerX, centerY, canvas.width / 2.5, 0, 2 * Math.PI, false);
+      context.lineWidth = 5;
+      context.strokeStyle = '#a9aaa9';
+      context.stroke();
+
+      window.location.assign(canvas.toDataURL());
+    </script>
+  </body>
+</html>
