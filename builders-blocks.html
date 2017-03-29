@@ -34,11 +34,9 @@
       canvas.height = window.innerHeight;
 
       // draw here
-      context.fillStyle = "#1a2831";
+      context.fillStyle = "#97c702";
+      context.strokeStyle = "#97c702";
       context.fillRect(0, 0, canvas.width, canvas.height);
-      
-      context.fillStyle = "#e3e3e3";
-      context.strokeStyle = "#e3e3e3";
 
       var colors = ["#678701", "#97c702", "#b4ed03"];
       
@@ -56,6 +54,7 @@
               
               if (x > 0 && y > 0) {
                   if (Math.round(Math.random())) {
+
                       context.beginPath();
                       context.moveTo(star.x, star.y);
                       context.lineTo(stars[y][x-1].x, stars[y][x-1].y);
@@ -64,6 +63,9 @@
                       context.lineTo(star.x, star.y);
                       context.fillStyle = (Math.round(Math.random())) ? colors[1] : colors[2];
                       context.fill();
+                      context.strokeStyle = context.fillStyle;
+                      context.stroke();
+
                       context.beginPath();
                       context.moveTo(stars[y-1][x-1].x, stars[y-1][x-1].y);
                       context.lineTo(stars[y][x-1].x, stars[y][x-1].y);
@@ -72,7 +74,11 @@
                       context.lineTo(stars[y-1][x-1].x, stars[y-1][x-1].y);
                       context.fillStyle = (Math.round(Math.random())) ? colors[1] : colors[2];
                       context.fill();
+                      context.strokeStyle = context.fillStyle;
+                      context.stroke();
+
                   } else {
+
                       context.beginPath();
                       context.moveTo(star.x, star.y);
                       //context.lineTo(stars[y][x-1].x, stars[y][x-1].y);
@@ -81,6 +87,9 @@
                       context.lineTo(star.x, star.y);
                       context.fillStyle = (Math.round(Math.random())) ? colors[0] : colors[2];
                       context.fill();
+                      context.strokeStyle = context.fillStyle;
+                      context.stroke();
+
                       context.beginPath();
                       context.moveTo(star.x, star.y);
                       context.lineTo(stars[y][x-1].x, stars[y][x-1].y);
@@ -89,6 +98,9 @@
                       context.lineTo(star.x, star.y);
                       context.fillStyle = (Math.round(Math.random())) ? colors[0] : colors[2];
                       context.fill();
+                      context.strokeStyle = context.fillStyle;
+                      context.stroke();
+
                   }
               }
           }
