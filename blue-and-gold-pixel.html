@@ -1,0 +1,18 @@
+<!DOCTYPE HTML>
+<html><body>
+<canvas id="canvas" width="2" height="1"></canvas>
+<script>
+
+var canvas = document.getElementById('canvas');
+var context = canvas.getContext('2d')
+
+context.fillStyle = '#002437';
+context.fillRect( 0, 0, 1, 1 );
+
+context.fillStyle = '#ad9963';
+context.fillRect( 1, 0, 1, 1 );
+
+window.location.assign(canvas.toDataURL());
+
+</script>
+</body></html>
