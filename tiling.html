@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+  <meta name="HandheldFriendly" content="True" />
+  <title>tiling</title>
+</head>
+<body>
+<canvas id="c">Sorry, your browser does not support canvas.</canvas>
+<script>
+    var experiment = {};
+    experiment.setup = function () {
+      
+      // check if the browser has any idea if we can do the setup yet
+      if (!window.innerWidth) {
+        setTimeout(experiment.setup, 500);
+        return;
+      }
+      
+      // grab canvas and drawing context
+      var canvas = document.getElementById('c'), context = canvas.getContext('2d');
+      if(!context){
+        return;
+      }
+      
+      // some css tweaks
+      document.body.style.background = "#ffffff";
+      document.body.style.margin = 0; 
+      document.body.style.overflow = "hidden";
+
+      // draw here
+ 
+      var nTilesX = 32;
+      var nTilesY = 32;
+      var tileWidth = 8;
+      var tileHeight = 8;
+
+      canvas.width = nTilesX * tileWidth;
+      canvas.height = nTilesY * tileHeight;
+
+      var tileTypes = [];
+
+      context.fillStyle = "rgb(94, 87, 66)";
+      context.fillRect(0, 0, canvas.width, canvas.height);
+
+      
+
+
+    };// end setup closure
+    
+    // if this html document is ready we can begin thinking of the experiment setup
+    if(document.readyState === 'complete'){
+      experiment.setup();
+    } else {
+      window.onload = function (){
+        experiment.setup();
+      }
+    }  
+</script>
+</body>
+</html>
