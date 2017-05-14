@@ -11,26 +11,26 @@
 <script>
     var experiment = {};
     experiment.setup = function () {
-      
+
       // check if the browser has any idea if we can do the setup yet
       if (!window.innerWidth) {
         setTimeout(experiment.setup, 500);
         return;
       }
-      
+
       // grab canvas and drawing context
       var canvas = document.getElementById('c'), context = canvas.getContext('2d');
       if(!context){
         return;
       }
-      
+
       // some css tweaks
       document.body.style.background = "#ffffff";
-      document.body.style.margin = 0; 
+      document.body.style.margin = 0;
       document.body.style.overflow = "hidden";
 
       // draw here
- 
+
       var nTilesX = 32;
       var nTilesY = 32;
       var tileWidth = 8;
@@ -40,18 +40,18 @@
       canvas.height = nTilesY * tileHeight;
 
       var tileTypes = [
-          {up: false, right: false, down: false, left: false},
-          {up: true, right: false, down: true, left: false},
-          {up: false, right: true, down: false, left: true},
-          {up: true, right: true, down: true, left: true},
-          {up: true, right: true, down: false, left: false},
-          {up: false, right: true, down: true, left: false},
-          {up: false, right: false, down: true, left: true},
-          {up: true, right: false, down: false, left: true},
-          {up: true, right: true, down: false, left: true},
-          {up: true, right: true, down: true, left: false},
-          {up: false, right: true, down: true, left: true},
-          {up: true, right: false, down: true, left: true}
+          {up: 0, right: 0, down: 0, left: 0},
+          {up: 1, right: 0, down: 1, left: 0},
+          {up: 0, right: 1, down: 0, left: 1},
+          {up: 1, right: 1, down: 1, left: 1},
+          {up: 1, right: 1, down: 0, left: 0},
+          {up: 0, right: 1, down: 1, left: 0},
+          {up: 0, right: 0, down: 1, left: 1},
+          {up: 1, right: 0, down: 0, left: 1},
+          {up: 1, right: 1, down: 0, left: 1},
+          {up: 1, right: 1, down: 1, left: 0},
+          {up: 0, right: 1, down: 1, left: 1},
+          {up: 1, right: 0, down: 1, left: 1}
 ];
 
       context.fillStyle = "rgb(94, 87, 66)";
@@ -64,7 +64,7 @@
       img.src = 'assets/Asset.jpg';
 
     };// end setup closure
-    
+
     // if this html document is ready we can begin thinking of the experiment setup
     if(document.readyState === 'complete'){
       experiment.setup();
@@ -72,7 +72,7 @@
       window.onload = function (){
         experiment.setup();
       }
-    }  
+    }
 </script>
 </body>
 </html>
