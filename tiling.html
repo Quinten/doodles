@@ -39,7 +39,20 @@
       canvas.width = nTilesX * tileWidth;
       canvas.height = nTilesY * tileHeight;
 
-      var tileTypes = [];
+      var tileTypes = [
+          {up: false, right: false, down: false, left: false},
+          {up: true, right: false, down: true, left: false},
+          {up: false, right: true, down: false, left: true},
+          {up: true, right: true, down: true, left: true},
+          {up: true, right: true, down: false, left: false},
+          {up: false, right: true, down: true, left: false},
+          {up: false, right: false, down: true, left: true},
+          {up: true, right: false, down: false, left: true},
+          {up: true, right: true, down: false, left: true},
+          {up: true, right: true, down: true, left: false},
+          {up: false, right: true, down: true, left: true},
+          {up: true, right: false, down: true, left: true}
+];
 
       context.fillStyle = "rgb(94, 87, 66)";
       context.fillRect(0, 0, canvas.width, canvas.height);
