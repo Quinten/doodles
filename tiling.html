@@ -44,8 +44,11 @@
       context.fillStyle = "rgb(94, 87, 66)";
       context.fillRect(0, 0, canvas.width, canvas.height);
 
-      
-
+      var img = new Image();
+      img.onload = function (e) {
+          context.drawImage(img, 0, 0, 8, 8, 0, 0, 8, 8);
+      };
+      img.src = 'assets/Asset.jpg';
 
     };// end setup closure
     
