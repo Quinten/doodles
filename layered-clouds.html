@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+  <meta name="HandheldFriendly" content="True" />
+  <title>layered clouds</title>
+</head>
+<body>
+<canvas id="c">Sorry, your browser does not support canvas.</canvas>
+<script>
+    var experiment = {};
+    experiment.setup = function () {
+
+      // check if the browser has any idea if we can do the setup yet
+      if (!window.innerWidth) {
+        setTimeout(experiment.setup, 500);
+        return;
+      }
+
+      // grab canvas and drawing context
+      var canvas = document.getElementById('c'), context = canvas.getContext('2d');
+      if(!context){
+        return;
+      }
+
+      // some css tweaks
+      document.body.style.background = "#ffffff";
+      document.body.style.margin = 0;
+      document.body.style.overflow = "hidden";
+
+      // fill canvas to browser size
+      //canvas.width = window.innerWidth;
+      //canvas.height = window.innerHeight;
+      canvas.width = 1024;
+      canvas.height = 1024;
+      context.fillStyle = "#000000";
+      context.fillRect(0, 0, canvas.width, canvas.height);
+
+      for (var l = 0; l < 32; l++) {
+
+          var c = Math.floor(255 * l / 32);
+          context.fillStyle = 'rgba('+c+','+c+','+c+',1)';
+
+          var b = canvas.height - (canvas.height * l / 32);
+          var p = 8 + (64 * l / 32);
+          var x = newX = 0;
+          var height = b + 40 + Math.random() * 200;
+          while (x < canvas.width) {
+            newX = x + 8 + Math.floor(Math.random() * p);
+            height = b + 40 + Math.random() * 200;
+            context.fillRect(x, canvas.height - height, newX - x, height);
+            context.beginPath();
+            context.arc(x, canvas.height - height, (newX - x)*2, 0, 2*Math.PI);
+            context.fill();
+            x = newX;
+          }
+      }
+
+    };// end setup closure
+
+    // if this html document is ready we can begin thinking of the experiment setup
+    if(document.readyState === 'complete'){
+      experiment.setup();
+    } else {
+      window.onload = function (){
+        experiment.setup();
+      }
+    }
+</script>
+</body>
+</html>
