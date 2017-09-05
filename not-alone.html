@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <style>
+      body {
+        margin: 0px;
+        padding: 0px;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="canvas" width="128" height="128"></canvas>
+    <script>
+      var canvas = document.getElementById('canvas');
+      var context = canvas.getContext('2d');
+      var centerX = canvas.width / 2;
+      var centerY = canvas.height / 2;
+
+      context.fillStyle = '#a9aaa9';
+
+      context.beginPath();
+      context.arc(32, 32, 8, 0, 2 * Math.PI, false);
+      context.fill();
+
+      context.beginPath();
+      context.arc(32, 96, 8, 0, 2 * Math.PI, false);
+      context.fill();
+
+      context.beginPath();
+      context.arc(96, 32, 8, 0, 2 * Math.PI, false);
+      context.fill();
+
+      context.beginPath();
+      context.arc(96, 96, 8, 0, 2 * Math.PI, false);
+      context.fill();
+
+      window.location = canvas.toDataURL();
+
+    </script>
+  </body>
+</html>
