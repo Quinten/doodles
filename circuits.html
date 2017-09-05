@@ -31,15 +31,62 @@
         context.fill();
 
         context.fillStyle = '#000000';
+        context.strokeStyle = '#000000';
+        context.lineWidth = 8;
 
         for (var x = 0; x <= gridWidth; x++) {
             availablePositions[x] = [];
             for (var y = 0; y <= gridHeight; y++) {
                 availablePositions[x][y] = false;
-                context.beginPath();
-                context.arc(offsetX + (x * unitX), offsetY + (y * unitY), 20, 0, 2 * Math.PI, false);
-                context.fill();
             }
+        }
+
+        function getRandomVerticalPoint(x, minY, maxY) {
+            var y = -1;
+            while (y < 0) {
+                var tempY = minY + Math.floor(Math.random() * (maxY + 1 - minY));
+                if (!availablePositions[x][tempY]) {
+                    availablePositions[x][tempY] = true;
+                    y = tempY;
+                }
+            }
+            return y;
+        }
+
+        function getRandomHorizontalPoint(y, minX, maxX) {
+            var x = -1;
+            while (x < 0) {
+                var tempX = minX + Math.floor(Math.random() * (maxX + 1 - minX));
+                if (!availablePositions[y][tempX]) {
+                    availablePositions[y][tempX] = true;
+                    x = tempX;
+                }
+            }
+            return x;
+        }
+
+        function drawLine(startX, startY, endX, endY) {
+            context.beginPath();
+            context.moveTo(offsetX + (startX * unitX), offsetY + (startY * unitY));
+            context.lineTo(offsetX + (endX * unitX), offsetY + (endY * unitY));
+            context.stroke();
+            context.beginPath();
+            context.arc(offsetX + (endX * unitX), offsetY + (endY * unitY), 20, 0, 2 * Math.PI, false);
+            context.fill();
+        }
+
+        for (var x = 0; x <= gridWidth; x++) {
+            var y = getRandomVerticalPoint(x, 0, gridHeight - 3);
+            drawLine(x, -5, x, y);
+            y = getRandomVerticalPoint(x, y + 1, gridHeight);
+            drawLine(x, gridHeight + 5, x, y);
+        }
+
+        for (var y = 0; y <= gridHeight; y++) {
+            var x = getRandomHorizontalPoint(y, 0, gridWidth - 3);
+            drawLine(-5, y, x, y);
+            x = getRandomHorizontalPoint(y, x + 1, gridWidth);
+            drawLine(gridWidth + 5, y, x, y);
         }
 
     </script>
