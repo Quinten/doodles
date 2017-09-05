@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <style>
+      body {
+        margin: 0px;
+        padding: 0px;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="canvas" width="3071" height="3071"></canvas>
+    <script>
+        var canvas = document.getElementById('canvas');
+        var context = canvas.getContext('2d');
+
+        var width = canvas.width;
+        var height = canvas.height;
+        var unitX = canvas.width / 26;
+        var unitY = canvas.height / 26;
+        var offsetX = unitX * 4;
+        var offsetY = unitY * 4;
+        var gridWidth = 18;
+        var gridHeight = 18;
+
+        var availablePositions = [];
+
+        context.fillStyle = '#ffffff';
+
+        context.rect(0, 0, width, height);
+        context.fill();
+
+        context.fillStyle = '#000000';
+
+        for (var x = 0; x <= gridWidth; x++) {
+            availablePositions[x] = [];
+            for (var y = 0; y <= gridHeight; y++) {
+                availablePositions[x][y] = false;
+                context.beginPath();
+                context.arc(offsetX + (x * unitX), offsetY + (y * unitY), 20, 0, 2 * Math.PI, false);
+                context.fill();
+            }
+        }
+
+    </script>
+  </body>
+</html>
