@@ -44,12 +44,12 @@
                 availablePositions[x][y] = false;
             }
         }
-        
+
         for (var x = 0; x <= gridWidth; x++) {
             top[x] = false;
             bottom[x] = false;
         }
-        
+
         for (var y = 0; y <= gridHeight; y++) {
             right[y] = false;
             left[y] = false;
@@ -71,7 +71,7 @@
                             leftEdges.push(e);
                         }
                     }
-                    
+
                     var edgeNumber = leftEdges[Math.floor(Math.random() * leftEdges.length)];
                     switch (edgeNumber) {
                         case 0:
@@ -115,7 +115,7 @@
                                 startX: -5,
                                 startY: y};
                     }
-                    
+
                 }
             }
         }
@@ -133,7 +133,7 @@
         for (var p = 0; p < 24; p++) {
             var line = getRandomPoints();
             drawLine(line.startX, line.startY, line.endX, line.endY);
-            
+
         }
 
     </script>
