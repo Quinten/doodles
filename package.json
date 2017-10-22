@@ -1,0 +1,19 @@
+{
+  "name": "doodles",
+  "version": "0.0.1",
+  "description": "A collection of static html5 canvas drawings",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Quinten/doodles.git"
+  },
+  "author": "Quinten Clause",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Quinten/doodles/issues"
+  },
+  "homepage": "https://github.com/Quinten/doodles#readme"
+}
