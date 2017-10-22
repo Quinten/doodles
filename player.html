@@ -1,0 +1,72 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+
+        body {
+            background: #000000;
+            margin: 0;
+            padding: 0;
+        }
+
+        iframe {
+            position:fixed;
+            top:0px;
+            left:0px;
+            bottom:0px;
+            right:0px;
+            width:100%;
+            height:100%;
+            border:none;
+            margin:0;
+            padding:0;
+            overflow:hidden;
+            z-index: 2;
+        }
+
+    </style>
+  </head>
+  <body>
+
+    <iframe src="scribble.html" id="iframe"></iframe>
+
+    <script>
+        var doodles = [
+            "2color-grid.html", // ready
+            "3dscribble.html", // bugged
+            "blobs.html", // needs work
+            "blue-prints.html", // needs repsonsive version
+            "builders-blocks-two.html", // ready
+            "builders-blocks.html", // ready
+            "circuits.html", // needs responsive version
+            "circuits2.html", // needs responsive version
+            "circuits3.html", // needs responsive version
+            "gray-blobs.html", // needs resposive version
+            "pudding.html", // ready
+            "purple-prints.html", // needs responsive version
+            "quadrilaterals.html", // ready
+            "scribble.html", // ready
+            "tiling.html", // needs work
+            "zodiac-signs.html" // ready
+        ];
+        function setRandomDoodle() {
+            var randomIndex = Math.floor(Math.random() * doodles.length);
+            var iframe = document.getElementById('iframe');
+            iframe.src = doodles[randomIndex];
+        }
+        setRandomDoodle();
+        setInterval(setRandomDoodle, 12000);
+    </script>
+
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-86363810-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+  </body>
+</html>
