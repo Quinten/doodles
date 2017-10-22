@@ -51,12 +51,15 @@
             "zodiac-signs.html" // ready
             // comic windows
         ];
+        var randomIndex = Math.floor(Math.random() * doodles.length);
         function setRandomDoodle() {
-            var randomIndex = Math.floor(Math.random() * doodles.length);
             iframe.src = doodles[randomIndex];
+            if (Math.round(Math.random())) {
+                randomIndex = Math.floor(Math.random() * doodles.length);
+            }
         }
         setRandomDoodle();
-        setInterval(setRandomDoodle, 12000);
+        setInterval(setRandomDoodle, 8000);
 
         function toggleFullScreen() {
             if (!document.mozFullScreen && !document.webkitFullScreen) {
