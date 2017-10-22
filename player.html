@@ -32,6 +32,7 @@
     <iframe src="scribble.html" id="iframe"></iframe>
 
     <script>
+        var iframe = document.getElementById('iframe');
         var doodles = [
             "2color-grid.html", // ready
             "3dscribble.html", // bugged
@@ -52,11 +53,33 @@
         ];
         function setRandomDoodle() {
             var randomIndex = Math.floor(Math.random() * doodles.length);
-            var iframe = document.getElementById('iframe');
             iframe.src = doodles[randomIndex];
         }
         setRandomDoodle();
         setInterval(setRandomDoodle, 12000);
+    
+        function toggleFullScreen() {
+            if (!document.mozFullScreen && !document.webkitFullScreen) {
+                if (iframe.mozRequestFullScreen) {
+                    iframe.mozRequestFullScreen();
+                } else {
+                    iframe.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);
+                }
+            } else {
+                if (document.mozCancelFullScreen) {
+                    document.mozCancelFullScreen();
+                } else {
+                    document.webkitCancelFullScreen();
+                }
+            }
+        }
+
+        document.addEventListener("keydown", function(e) {
+            if (e.keyCode == 13) {
+                toggleFullScreen();
+            }
+        }, false);
+
     </script>
 
     <script>
