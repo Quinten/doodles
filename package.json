@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/Quinten/doodles/issues"
   },
-  "homepage": "https://github.com/Quinten/doodles#readme"
+  "homepage": "https://github.com/Quinten/doodles#readme",
+  "dependencies": {
+    "express": "^4.15.2"
+  }
 }
