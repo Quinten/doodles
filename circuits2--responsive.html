@@ -1,0 +1,144 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <style>
+      body {
+        margin: 0px;
+        padding: 0px;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="canvas"></canvas>
+    <script>
+        var canvas = document.getElementById('canvas');
+        var context = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        var width = canvas.width;
+        var height = canvas.height;
+        var gridWidth = 24;
+        var gridHeight = Math.floor(gridWidth * height / width);
+        var unitX = canvas.width / (gridWidth + 8);
+        var unitY = canvas.height / (gridHeight + 8);
+        var offsetX = unitX * 4;
+        var offsetY = unitY * 4;
+
+        var availablePositions = [];
+        var top = [];
+        var right = [];
+        var bottom = [];
+        var left = [];
+
+        context.fillStyle = '#ffffff';
+
+        context.rect(0, 0, width, height);
+        context.fill();
+
+        context.fillStyle = '#000000';
+        context.strokeStyle = '#000000';
+        context.lineWidth = 2;
+
+        for (var x = 0; x <= gridWidth; x++) {
+            availablePositions[x] = [];
+            for (var y = 0; y <= gridHeight; y++) {
+                availablePositions[x][y] = false;
+            }
+        }
+
+        for (var x = 0; x <= gridWidth; x++) {
+            top[x] = false;
+            bottom[x] = false;
+        }
+
+        for (var y = 0; y <= gridHeight; y++) {
+            right[y] = false;
+            left[y] = false;
+        }
+
+        function getRandomPoints() {
+            var found = false;
+            while (!found) {
+                var x = Math.round(Math.random() * gridWidth);
+                var y = Math.round(Math.random() * gridHeight);
+                if (!availablePositions[x][y]
+                    && (!top[x] || !right[y]
+                    || !bottom[x] || !left[y])) {
+                    availablePositions[x][y] = true;
+                    var edges = [top[x], right[y], bottom[x], left[y]];
+                    var leftEdges = [];
+                    for (var e = 0; e < edges.length; e++) {
+                        if (!edges[e]) {
+                            leftEdges.push(e);
+                        }
+                    }
+
+                    var edgeNumber = leftEdges[Math.floor(Math.random() * leftEdges.length)];
+                    switch (edgeNumber) {
+                        case 0:
+                            top[x] = true;
+                            right[y] = true;
+                            left[y] = true;
+                            for (var d = y; d > -1; d--) {availablePositions[x][d] = true;}
+                            found = true;
+                            return {endX: x,
+                                endY: y,
+                                startX: x,
+                                startY: -5};
+                        case 1:
+                            right[y] = true;
+                            top[x] = true;
+                            bottom[x] = true;
+                            for (var d = x; d <= gridWidth; d++) {availablePositions[d][y] = true;}
+                            found = true;
+                            return {endX: x,
+                                endY: y,
+                                startX: gridWidth + 5,
+                                startY: y};
+                        case 2:
+                            bottom[x] = true;
+                            right[y] = true;
+                            left[y] = true;
+                            for (var d = y; d <= gridHeight; d++) {availablePositions[x][d] = true;}
+                            found = true;
+                            return {endX: x,
+                                endY: y,
+                                startX: x,
+                                startY: gridHeight + 5};
+                        case 3:
+                            left[y] = true;
+                            top[x] = true;
+                            bottom[x] = true;
+                            for (var d = x; d > -1; d--) {availablePositions[d][y] = true;}
+                            found = true;
+                            return {endX: x,
+                                endY: y,
+                                startX: -5,
+                                startY: y};
+                    }
+
+                }
+            }
+        }
+
+        function drawLine(startX, startY, endX, endY) {
+            context.beginPath();
+            context.moveTo(offsetX + (startX * unitX), offsetY + (startY * unitY));
+            context.lineTo(offsetX + (endX * unitX), offsetY + (endY * unitY));
+            context.stroke();
+            context.beginPath();
+            context.arc(offsetX + (endX * unitX), offsetY + (endY * unitY), 6, 0, 2 * Math.PI, false);
+            context.fill();
+        }
+
+        for (var p = 0; p < 24; p++) {
+            var line = getRandomPoints();
+            drawLine(line.startX, line.startY, line.endX, line.endY);
+
+        }
+
+    </script>
+  </body>
+</html>
