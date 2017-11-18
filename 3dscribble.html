@@ -85,11 +85,14 @@
         }
         var prevP = p[0];
         for (var i = 1; i < numPoints; i++) {
-            if ((p[i].z < fl) &&
-                    !(((prevP._x < 0) && (p[i]._x > canvas.width))
+            if ((p[i].z < fl) && (prevP.z < fl)
+                && !(((prevP._x < 0) && (p[i]._x > canvas.width))
                         || ((prevP._x > canvas.width) && (p[i]._x < 0))
                         || ((prevP._y < 0) && (p[i]._y > canvas.height))
-                        || ((prevP._y > canvas.height) && (p[i]._y < 0)))){
+                        || ((prevP._y > canvas.height) && (p[i]._y < 0)))
+                && !(((prevP._x < 0) || (prevP._x > canvas.width) || (p[i]._x < 0) || (p[i]._x > canvas.width) || (prevP._y < 0) || (prevP._y > canvas.height) || (p[i]._y < 0) || (p[i]._y > canvas.height))
+                    && ((Math.abs(prevP.x - p[i].x) > lineSize) || (Math.abs(prevP.y - p[i].y) > lineSize) || (Math.abs(prevP.z - p[i].z) > lineSize)))
+            ){
                 context.beginPath();
                 context.moveTo(prevP._x, prevP._y);
                 context.lineTo(p[i]._x, p[i]._y);
