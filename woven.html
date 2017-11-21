@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+    <meta name="HandheldFriendly" content="True" />
+    <title>Woven</title>
+</head>
+<body>
+<canvas id="c">Sorry, your browser does not support canvas.</canvas>
+<script>
+var experiment = {};
+experiment.setup = function () {
+
+    // check if the browser has any idea if we can do the setup yet
+    if (!window.innerWidth) {
+        setTimeout(experiment.setup, 500);
+        return;
+    }
+
+    // grab canvas and drawing context
+    var canvas = document.getElementById('c'), context = canvas.getContext('2d');
+    if (!context) {
+        return;
+    }
+
+    // some css tweaks
+    document.body.style.background = "#000000";
+    document.body.style.margin = 0;
+    document.body.style.overflow = "hidden";
+
+    // fill canvas to browser size
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    // draw here
+    context.fillStyle = "#ffffff";
+    context.fillRect(0, 0, canvas.width, canvas.height);
+
+    var shapeStroke = "#000000";
+    var shapeFill = "#ffffff";
+
+    var shapes = [];
+    shapes[0] = ['stroke-hor', 'stroke-vert', 'fill-hor', 'fill-vert'];
+    shapes[1] = ['stroke-hor', 'fill-hor', 'stroke-vert', 'fill-vert'];
+    shapes[2] = ['stroke-vert', 'fill-vert', 'stroke-hor', 'fill-hor'];
+
+    var nX = Math.ceil(canvas.width / 32) + 3;
+    var nY = Math.ceil(canvas.height / 32) + 3;
+    for (var y = 0; y < nY; y++) {
+        for (var x = 0; x < nX; x++) {
+            var point = {
+                x: -32 + (x * 32),
+                y: -32 + (y * 32),
+            };
+
+            var chosenShapes = shapes[Math.floor(Math.random() * shapes.length)];
+
+            for (var s = 0; s < chosenShapes.length; s++) {
+                switch (chosenShapes[s]) {
+                    case 'stroke-hor':
+                        context.fillStyle = shapeStroke;
+                        context.fillRect(point.x - 16, point.y - 6, 32, 13);
+                        break;
+                    case 'stroke-vert':
+                        context.fillStyle = shapeStroke;
+                        context.fillRect(point.x - 6, point.y - 16, 13, 32);
+                        break;
+                    case 'fill-hor':
+                        context.fillStyle = shapeFill;
+                        context.fillRect(point.x - 16, point.y - 5, 32, 10);
+                        break;
+                    case 'fill-vert':
+                        context.fillStyle = shapeFill;
+                        context.fillRect(point.x - 5, point.y - 16, 10, 32);
+                        break;
+                }
+            }
+        }
+    }
+
+};// end setup closure
+
+// if this html document is ready we can begin thinking of the experiment setup
+if (document.readyState === 'complete'){
+    experiment.setup();
+} else {
+    window.onload = function (){
+        experiment.setup();
+    }
+}
+</script>
+</body>
+</html>
