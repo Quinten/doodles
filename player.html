@@ -57,15 +57,35 @@
             "lappen.html", // ready
             "woven.html" // ready
         ];
-        var randomIndex = Math.floor(Math.random() * doodles.length);
-        function setRandomDoodle() {
-            iframe.src = doodles[randomIndex];
-            if (Math.round(Math.random())) {
-                randomIndex = Math.floor(Math.random() * doodles.length);
+        var unplayedDoodles;
+        function refillUnplayedDoodles() {
+            unplayedDoodles = [];
+            for (var d = 0; d < doodles.length; d++) {
+                unplayedDoodles.push(doodles[d]);
             }
         }
-        setRandomDoodle();
-        setInterval(setRandomDoodle, 8000);
+        refillUnplayedDoodles();
+        var nTimesDoodleWillShown = 2;
+        var nTimesDoodleIsShown = 0;
+        var doodle;
+        function changeDoodle() {
+            var randomIndex = Math.floor(Math.random() * unplayedDoodles.length);
+            doodle = unplayedDoodles.splice(randomIndex, 1)[0];
+        }
+        changeDoodle();
+        function refreshDoodle() {
+            if (nTimesDoodleIsShown >= nTimesDoodleWillShown) {
+                if (!unplayedDoodles.length) {
+                    refillUnplayedDoodles();
+                }
+                changeDoodle();
+                nTimesDoodleIsShown = 0;
+            }
+            iframe.src = doodle;
+            nTimesDoodleIsShown++;
+        }
+        refreshDoodle();
+        setInterval(refreshDoodle, 8000);
 
         function toggleFullScreen() {
             if (!document.mozFullScreen && !document.webkitFullScreen) {
