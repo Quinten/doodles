@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+    <meta name="HandheldFriendly" content="True" />
+    <title>three2</title>
+    <style> body { margin: 0; } canvas { width: 100%; height: 100% } </style>
+</head>
+<body>
+    <script src="lib/three.js"></script>
+    <script>
+
+        var w = 2362;
+        var h = 2362;
+
+        var scene = new THREE.Scene();
+        var camera = new THREE.PerspectiveCamera( 75, w / h, 0.1, 1000 );
+        var renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize( w, h );
+        document.body.appendChild( renderer.domElement );
+
+        //var color = Math.random() * 0xffffff;
+        var hue = Math.floor(Math.random() * 360);
+        var color = new THREE.Color('hsl(' + hue + ', 40%, 12%)');
+        scene.background = color;
+        scene.fog = new THREE.Fog(color.getHex(), 0, 300);
+        var lightcolor = new THREE.Color('hsl(' + hue + ', 40%, 88%)');
+
+        var group = new THREE.Group();
+
+        for (var c = 0; c < 1000; c++) {
+            var geometry = new THREE.BoxGeometry( 40, 40, 40 );
+            //var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+            var material = new THREE.MeshBasicMaterial( { color: lightcolor } );
+            var cube = new THREE.Mesh( geometry, material );
+            cube.position.x = 150 - Math.random() * 300;
+            cube.position.y = 150 - Math.random() * 300;
+            cube.position.z = 150 - Math.random() * 300;
+            group.add( cube );
+        }
+
+        group.rotation.x = Math.random();
+        group.rotation.y = Math.random();
+        group.rotation.z = Math.random();
+        scene.add(group);
+        camera.position.z = 300;
+
+        renderer.render( scene, camera );
+
+    </script>
+</body>
+</html>
