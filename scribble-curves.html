@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+        <meta name="HandheldFriendly" content="True" />
+        <title>scribble curves</title>
+    </head>
+    <body>
+        <canvas id="c">Sorry, your browser does not support canvas.</canvas>
+        <script>
+var experiment = {};
+experiment.setup = function () {
+
+    // check if the browser has any idea if we can do the setup yet
+    if (!window.innerWidth) {
+        setTimeout(experiment.setup, 500);
+        return;
+    }
+
+    // grab canvas and drawing context
+    var canvas = document.getElementById('c'), context = canvas.getContext('2d');
+    if(!context){
+        return;
+    }
+
+    // some css tweaks
+    document.body.style.background = "#ffffff";
+    document.body.style.margin = 0;
+    document.body.style.overflow = "hidden";
+
+    // fill canvas to browser size
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    // draw here
+    context.fillStyle = "#ffffff";
+    context.fillRect(0, 0, canvas.width, canvas.height);
+
+    var plotter = {
+        //x: Math.random() * canvas.width,
+        //y: Math.random() * canvas.height,
+        x: canvas.width / 2,
+        y: canvas.height / 2,
+        cp1x: 0,
+        cp1y: 0,
+        cp2x: 0,
+        cp2y: 0,
+        alpha: 0, down: false
+    };
+
+    plotter.cp2x = plotter.x - 20;
+    plotter.cp2y = plotter.y - 40;
+
+    for (var f = 0; f < 1000; f++){
+
+        context.beginPath();
+        context.moveTo(plotter.x, plotter.y);
+
+        var newX = plotter.x + 80 - Math.random() * 160;
+        if (newX > canvas.width) {
+            newX = canvas.width;
+        }
+        if (newX < 0) {
+            newX = 0;
+        }
+        var newY = plotter.y + 80 - Math.random() * 160;
+        if (newY > canvas.height) {
+            newY = canvas.height;
+        }
+        if (newY < 0) {
+            newY = 0;
+        }
+
+        plotter.cp1x = plotter.x + plotter.x - plotter.cp2x;
+        plotter.cp1y = plotter.y + plotter.y - plotter.cp2y;
+
+        plotter.cp2x = newX + plotter.y - plotter.cp1y;
+        plotter.cp2y = newY + plotter.x - plotter.cp1x;
+
+        plotter.x = newX;
+        plotter.y = newY;
+
+        context.bezierCurveTo(plotter.cp1x, plotter.cp1y, plotter.cp2x, plotter.cp2y, plotter.x, plotter.y);
+
+        if (plotter.down) {
+            plotter.alpha -= 0.01;
+            if (plotter.alpha < 0) {
+                plotter.alpha = 0;
+                plotter.down = false;
+            }
+        } else {
+            plotter.alpha += 0.01;
+            if (plotter.alpha > 1) {
+                plotter.alpha = 1;
+                plotter.down = true;
+            }
+        }
+
+        context.strokeStyle = "rgba(35,33,23," + plotter.alpha + ")";
+        context.stroke();
+    }
+};// end setup closure
+
+// if this html document is ready we can begin thinking of the experiment setup
+if(document.readyState === 'complete'){
+    experiment.setup();
+} else {
+    window.onload = function (){
+        experiment.setup();
+    }
+}
+        </script>
+    </body>
+</html>
