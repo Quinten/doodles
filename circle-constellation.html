@@ -25,8 +25,12 @@ experiment.setup = function () {
         return;
     }
 
+    var invert = !(Math.random() > .5);
+    var bgColor = (invert) ? "hsl(" + Math.floor(Math.random() * 360) + ", 5%, 85%)" : "hsl(" + Math.floor(Math.random() * 360) + ", 45%, 30%)";
+    var strokeColor = (!invert) ? "hsl(" + Math.floor(Math.random() * 360) + ", 5%, 85%)" : "hsl(" + Math.floor(Math.random() * 360) + ", 45%, 30%)";
+
     // some css tweaks
-    document.body.style.background = "#ffffff";
+    document.body.style.background = bgColor;
     document.body.style.margin = 0;
     document.body.style.overflow = "hidden";
 
@@ -35,10 +39,10 @@ experiment.setup = function () {
     canvas.height = window.innerHeight;
 
     // fill the background
-    context.fillStyle = "rgb(213, 217, 186)";
+    context.fillStyle = bgColor;
     context.fillRect(0, 0, canvas.width, canvas.height);
     // "stroke color"
-    context.strokeStyle = "rgb(89, 74, 89)";
+    context.strokeStyle = strokeColor;
 
     context.beginPath();
     context.arc(canvas.width / 2 - canvas.height / 4, canvas.height / 2, canvas.height / 2, 0 , Math.PI *2, false)
