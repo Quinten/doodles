@@ -50,9 +50,9 @@ experiment.setup = function () {
     let r = Math.sqrt(canvas.height * canvas.height + canvas.width * canvas.width) / 2;
 
     let circles = [
-        { x: 0 + 480, y: 0 - 1024, r: r, l: 6 },
-        { x: 2362 + 160, y: 0 + 320, r: r, l: 6 },
-        { x: 2364 + 1280, y: 2362, r: r, l: 6 },
+        { x: 0, y: 0 + 1024, r: r + 320, l: 6 },
+        { x: -320, y: 2362, r: r, l: 6 },
+        { x: -320, y: -640, r: r, l: 6 },
         //{ x: 2400, y: -1024, r: r },
         //{ x: canvas.width / 2 + (Math.random() * canvas.width / 2), y: canvas.height / 2 - (Math.random() * canvas.height / 2), r: r },
         //{ x: canvas.width / 2 - (Math.random() * canvas.width / 2), y: canvas.height / 2 + (Math.random() * canvas.height / 2), r: r },
