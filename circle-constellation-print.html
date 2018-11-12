@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+        <meta name="HandheldFriendly" content="True" />
+        <title>Circle constellation</title>
+    </head>
+    <body>
+        <canvas id="c">Sorry, your browser does not support canvas.</canvas>
+        <script>
+
+let experiment = {};
+experiment.setup = function () {
+
+    // check if the browser has any idea if we can do the setup yet
+    if (!window.innerWidth) {
+        setTimeout(experiment.setup, 500);
+        return;
+    }
+
+    // grab canvas and drawing context
+    let canvas = document.getElementById('c'), context = canvas.getContext('2d');
+    if (!context) {
+        return;
+    }
+
+    let invert = !(Math.random() > .5);
+    let bgColor = (invert) ? "hsl(" + Math.floor(Math.random() * 360) + ", 5%, 85%)" : "hsl(" + Math.floor(Math.random() * 360) + ", 45%, 30%)";
+    let strokeColor = (!invert) ? "hsl(" + Math.floor(Math.random() * 360) + ", 5%, 85%)" : "hsl(" + Math.floor(Math.random() * 360) + ", 45%, 30%)";
+
+    // some css tweaks
+    document.body.style.background = bgColor;
+    document.body.style.margin = 0;
+    document.body.style.overflow = "hidden";
+
+    // fill canvas to browser size
+    //canvas.width = window.innerWidth;
+    //canvas.height = window.innerHeight;
+    canvas.width = 2362;
+    canvas.height = 2362;
+
+    // fill the background
+    context.fillStyle = bgColor;
+    context.fillRect(0, 0, canvas.width, canvas.height);
+    // "stroke color"
+    context.strokeStyle = strokeColor;
+    context.lineWidth = 4;
+
+    let r = Math.sqrt(canvas.height * canvas.height + canvas.width * canvas.width) / 2;
+
+    let circles = [
+        { x: 0 + 480, y: 0 - 1024, r: r, l: 6 },
+        { x: 2362 + 160, y: 0 + 320, r: r, l: 6 },
+        { x: 2364 + 1280, y: 2362, r: r, l: 6 },
+        //{ x: 2400, y: -1024, r: r },
+        //{ x: canvas.width / 2 + (Math.random() * canvas.width / 2), y: canvas.height / 2 - (Math.random() * canvas.height / 2), r: r },
+        //{ x: canvas.width / 2 - (Math.random() * canvas.width / 2), y: canvas.height / 2 + (Math.random() * canvas.height / 2), r: r },
+        //{ x: canvas.width / 2 - (Math.random() * canvas.width / 2), y: canvas.height / 2 - (Math.random() * canvas.height / 2), r: r },
+        //{ x: canvas.width / 2 + (Math.random() * canvas.width / 2), y: canvas.height / 2 + (Math.random() * canvas.height / 2), r: r }
+    ];
+
+    function intersection(x0, y0, r0, x1, y1, r1) {
+        // https://stackoverflow.com/questions/12219802/a-javascript-function-that-returns-the-x-y-points-of-intersection-between-two-ci
+        let a, dx, dy, d, h, rx, ry;
+        let x2, y2;
+
+        dx = x1 - x0;
+        dy = y1 - y0;
+
+        d = Math.sqrt((dy*dy) + (dx*dx));
+
+        if (d > (r0 + r1)) {
+            // no solution. circles do not intersect.
+            return false;
+        }
+        if (d < Math.abs(r0 - r1)) {
+            // no solution. one circle is contained in the other
+            return false;
+        }
+
+        a = ((r0*r0) - (r1*r1) + (d*d)) / (2.0 * d) ;
+
+        x2 = x0 + (dx * a/d);
+        y2 = y0 + (dy * a/d);
+
+        h = Math.sqrt((r0*r0) - (a*a));
+
+        rx = -dy * (h/d);
+        ry = dx * (h/d);
+
+        let xi = x2 + rx;
+        let xi_prime = x2 - rx;
+        let yi = y2 + ry;
+        let yi_prime = y2 - ry;
+
+        return [xi, xi_prime, yi, yi_prime];
+    }
+
+    for (let c = 0; c < 5; c++) {
+        r = r / 3;
+        let newCircles = [];
+        for (let t = circles.length - 1; t > 0; t--) {
+            for (let d = t - 1; d >= 0; d--) {
+                var newPoints = intersection(circles[t].x, circles[t].y, circles[t].r, circles[d].x, circles[d].y, circles[d].r);
+
+                if (newPoints) {
+                    newCircles.push({x: newPoints[0], y: newPoints[2], r: r, l: 6 - c});
+                    newCircles.push({x: newPoints[1], y: newPoints[3], r: r, l: 6 - c});
+                }
+            }
+        }
+        circles = circles.concat(newCircles);
+    }
+
+    for (let circle of circles) {
+        context.beginPath();
+        context.lineWidth = circle.l;
+        context.arc(circle.x, circle.y, circle.r, 0 , Math.PI *2, false)
+        context.closePath();
+        context.stroke();
+    }
+
+};// end setup closure
+
+// if this html document is ready we can begin thinking of the experiment setup
+if(document.readyState === 'complete'){
+    experiment.setup();
+} else {
+    window.onload = function (){
+        experiment.setup();
+    }
+}
+        </script>
+    </body>
+</html>
